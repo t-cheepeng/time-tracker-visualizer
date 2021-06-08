@@ -1,0 +1,7 @@
+# Data folder
+data/*
+!data/README.md
+
+# Any cache folders
+__pycache__
+.vscode
