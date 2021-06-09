@@ -1,6 +1,6 @@
 def sum_time_by_tag(data):
-    return data.groupby('Tag', as_index=False)['Time (decimal)'].sum()
+    return data.groupby('Tags', as_index=False)['Duration (decimal)'].sum()
 
 def sum_time(data):
-    return data['Time (decimal)'].sum()
+    return data['Duration (decimal)'].sum()
 
