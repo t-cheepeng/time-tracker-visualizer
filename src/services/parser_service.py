@@ -15,4 +15,12 @@ def parse_data(content, filename):
         print(e)
         return pd.DataFrame()
 
+    # Address the issue where Clockify sometimes use "Tags" instead of "Tag" and 
+    # "Duration (Decimal)"" instead of "Time (Decimal" as column headers
+    columns_to_rename = {
+        'Tags':'Tag', 
+        'Duration (decimal)':'Time (decimal)', 
+        'Duration (h)':'Time (h)'
+    }
+    df.rename(columns=columns_to_rename, inplace=True)
     return df
