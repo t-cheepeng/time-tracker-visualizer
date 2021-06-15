@@ -1,2 +1,3 @@
 @echo off
-cd src && python app.py
+cd src && python index.py
+cd ../
