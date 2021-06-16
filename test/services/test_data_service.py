@@ -2,7 +2,6 @@ import unittest
 import pandas as pd
 import pandas.testing as pt
 from src.services import data_service
-from src.assets import constants
 
 class TestDataService(unittest.TestCase):
     test_bundle_data = ''
