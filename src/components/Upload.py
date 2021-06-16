@@ -17,20 +17,18 @@ layout = dcc.Upload(
 )
 
 @app.callback(Output('output-data-upload', 'children'),
-              Output('upload-data', 'style'),
+              Output('upload-data', 'className'),
               Input('upload-data', 'contents'),
               Input('group-by-criteria', 'value'),
-              Input('upload-data', 'style'),
+              Input('upload-data', 'className'),
               State('upload-data', 'filename'))
-def update_visualizer(content, criteria, upload_box, filename):
+def update_visualizer(content, criteria, class_name, filename):
     if content is not None:
         parsed = parser_service.parse_data(content, filename)
         
         if parsed.empty:
-            return Error.layout, upload_box
+            return (Error.layout, class_name)
         else:
-            upload_box_update = upload_box.copy()
-            upload_box_update['background'] = '#b4ffb4' # faded green
-            return Chart.serve_layout(parsed, criteria), upload_box_update
+            return (Chart.serve_layout(parsed, criteria), class_name + (' bg-faded-green'))
 
-    return None, upload_box
+    return [None, class_name]
