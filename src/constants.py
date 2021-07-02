@@ -1,17 +1,3 @@
-# TODO: Generate the list of dictionaries (below) automatically from the list of criteria
-group_by_criteria = ['Tag', 'Description', 'Project', 'Client', 'User', 'Groups', 'Date', 'Task']
-group_by_options = [
-    {'label': 'Project', 'value': 'Project'},
-    {'label': 'Client', 'value': 'Client'},
-    {'label': 'User', 'value': 'User'},
-    {'label': 'Groups', 'value': 'Groups'},
-    {'label': 'Tag', 'value': 'Tag'},
-    {'label': 'Date', 'value': 'Date'},
-    {'label': 'Description', 'value': 'Description'},
-    {'label': 'Task', 'value': 'Task'},
-]
-
-
 # ============= DATA COLUMN NAMES =============
 # Standardized names to be used for data. All lowercase letters with no spaces
 project = 'project'
@@ -32,10 +18,10 @@ bill_rate = 'br'
 bill_amt = 'ba'
 
 # ============= DATA COLUMN MAPPINGS =============
-# Address the issue where Clockify sometimes use "Tags" instead of "Tag" and 
+# Address the issue where Clockify sometimes use "Tags" instead of "Tag" and
 # "Duration (Decimal)"" instead of "Time (Decimal" as column headers
-#     'Tags':'Tag', 
-#     'Duration (decimal)':'Time (decimal)', 
+#     'Tags':'Tag',
+#     'Duration (decimal)':'Time (decimal)',
 #     'Duration (h)':'Time (h)'
 col_name_map = {
     'Project': project,
@@ -58,3 +44,15 @@ col_name_map = {
     'Billable Rate (SGD)': bill_rate,
     'Billable Amount (SGD)': bill_amt,
 }
+
+# TODO: Generate the list of dictionaries (below) automatically from the list of criteria
+group_by_criteria = ['Tag', 'Description', 'Project', 'Client', 'User', 'Date', 'Task']
+group_by_options = [
+    {'label': 'Project', 'value': project},
+    {'label': 'Client', 'value': client},
+    {'label': 'User', 'value': user},
+    {'label': 'Tag', 'value': tags},
+    {'label': 'Date', 'value': start_date},
+    {'label': 'Description', 'value': desc},
+    {'label': 'Task', 'value': task},
+]

@@ -34,7 +34,8 @@ layout = dcc.Upload(
 def update_visualizer(content, criteria, upload_box, filename):
     if content is not None:
         parsed = parser_service.parse_data(content, filename)
-        
+        # TODO: check if df here has been renamed in columns
+        # TODO: store data in dcc.Store
         if parsed.empty:
             return Error.layout, upload_box
         else:

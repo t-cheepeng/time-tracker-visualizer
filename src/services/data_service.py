@@ -1,5 +1,5 @@
 import pandas as pd
-import src.constants as const
+import constants as const
 
 def sum_time_by_criteria(data, criteria):
     # TODO Group by multiple criteria (is there even a need)
