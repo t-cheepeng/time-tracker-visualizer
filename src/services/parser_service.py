@@ -1,6 +1,7 @@
 import io
 import base64
 import pandas as pd
+from constants import col_name_map
 
 def parse_data(content, filename):
     _, content_string = content.split(',')
@@ -15,12 +16,5 @@ def parse_data(content, filename):
         print(e)
         return pd.DataFrame()
 
-    # Address the issue where Clockify sometimes use "Tags" instead of "Tag" and 
-    # "Duration (Decimal)"" instead of "Time (Decimal" as column headers
-    columns_to_rename = {
-        'Tags':'Tag', 
-        'Duration (decimal)':'Time (decimal)', 
-        'Duration (h)':'Time (h)'
-    }
-    df.rename(columns=columns_to_rename, inplace=True)
+    df.rename(columns=col_name_map, inplace=True)
     return df
