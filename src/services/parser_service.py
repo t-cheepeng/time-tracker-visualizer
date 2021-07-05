@@ -1,6 +1,7 @@
 import io
 import base64
 import pandas as pd
+import json
 from constants import col_name_map
 
 def parse_data(content, filename):
@@ -18,3 +19,9 @@ def parse_data(content, filename):
 
     df.rename(columns=col_name_map, inplace=True)
     return df
+
+def parse_json_to_df(data):
+    return pd.DataFrame.from_dict(json.loads(data))
+
+def parse_df_to_json(df):
+    return df.to_json()
