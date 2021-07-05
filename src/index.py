@@ -10,7 +10,6 @@ app.layout = dbc.Container([
         html.Hr(),
 
         Instructions.layout,
-        GroupBy.layout,
         Upload.layout,
 
         html.Div(id='output-data-upload'),

@@ -5,17 +5,14 @@ import dash_bootstrap_components as dbc
 import constants
 
 layout = dbc.Row([
-    html.Span("Group By: "),
+    dbc.Label(html_for='group-by-criteria', children=['Group By: '], className='col-2 col-form-label'),
     dcc.Dropdown(
         id='group-by-criteria',
         options=constants.group_by_options,
-        # TODO: Somehow fix this group by thing to match standardised column names
-        value=constants.group_by_criteria[:2],
+        value=[constants.tags],
         multi=True,
-        style={'width':'70%'}
+        style={'width':'70%'},
+        className='col-10'
     ),
-    ],
+    ], className='form-group'
 )  
-
-
-   
