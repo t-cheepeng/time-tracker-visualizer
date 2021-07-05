@@ -39,14 +39,13 @@ col_name_map = {
     'End Time': end_time,
     'Time (h)': time_in_hours,
     'Duration (h)': time_in_hours,
-    'Time (decmial)': time_in_decmial,
+    'Time (decimal)': time_in_decmial,
     'Duration (decimal)': time_in_decmial,
     'Billable Rate (SGD)': bill_rate,
     'Billable Amount (SGD)': bill_amt,
+    'Amount (SGD)': bill_amt,
 }
 
-# TODO: Generate the list of dictionaries (below) automatically from the list of criteria
-group_by_criteria = ['Tag', 'Description', 'Project', 'Client', 'User', 'Date', 'Task']
 group_by_options = [
     {'label': 'Project', 'value': project},
     {'label': 'Client', 'value': client},
