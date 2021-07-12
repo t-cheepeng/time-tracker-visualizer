@@ -3,7 +3,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output, State
 
 from app import app
-from services import parser_service
+from services import data_service, parser_service
 from components import Chart, Error
 
 layout = dcc.Upload(
@@ -39,6 +39,8 @@ def update_visualizer(content, upload_box, filename):
         else:
             upload_box_update = upload_box.copy()
             upload_box_update['background'] = '#b4ffb4' # faded green
-            return Chart.layout, upload_box_update, parser_service.parse_df_to_json(parsed)
+            splitted = data_service.split_carryovers(parsed)
+            colours = data_service.get_discret_colour_map(parsed)
+            return Chart.layout, upload_box_update, {'data': parser_service.parse_df_to_json(splitted), 'colours': colours}
 
     return None, upload_box, None
