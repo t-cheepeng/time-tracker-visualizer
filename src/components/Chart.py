@@ -28,44 +28,56 @@ layout = html.Div([
             ),
         ], width=4, className='p-3'),
     ]),
-    dbc.Row([
-        dbc.Col(id='chart-container')
-            ])
+    dbc.Row([dbc.Col(id='pie')]),
+    dbc.Row([dbc.Col(id='histogram')])
 ])
 
 
-@app.callback(Output('chart-container', 'children'),
+@app.callback(Output('pie', 'children'),
+              Output('histogram', 'children'),
               Input('dropdown-selector', 'value'),
               Input('memory-store', 'data'),
               Input('group-by-criteria', 'value'))
-def update_chart(selected, data, criteria):
+def update_charts(selected, data, criteria):
     if data is None:
-        # No valid data in memory store
+        # No data in memory store
         raise PreventUpdate
-    
-    df = parser_service.parse_json_to_df(data)
-    fig = None
+
+    df = parser_service.parse_json_to_df(data['data'])
+    colour_map = data['colours']    
+    pie_chart = None
     group_sum = None
 
+    # ===== Building Pie Chart ======
     if selected == 'Averaged':
         group_sum = data_service.sum_time_by_criteria(
             df, criteria)
-        fig = px.pie(group_sum, values=const.time_in_decmial,
-                 names=criteria[0], title='An Averaged 24hr')
+        pie_chart = px.pie(group_sum, values=const.time_in_decmial, color=const.tags, color_discrete_map=colour_map,
+                           names=criteria[0], title='An Averaged 24hr')
     elif selected == 'Weekday':
         group_sum = data_service.sum_time_by_workweek(df, True)
-        fig = px.pie(group_sum, values=const.time_in_decmial,
-                     names=criteria[0], title='An Averaged Weekday')
+        pie_chart = px.pie(group_sum, values=const.time_in_decmial, color=const.tags, color_discrete_map=colour_map,
+                           names=criteria[0], title='An Averaged Weekday')
     elif selected == 'Weekend':
         group_sum = data_service.sum_time_by_workweek(df, False)
-        fig = px.pie(group_sum, values=const.time_in_decmial,
-                     names=criteria[0], title='An Averaged Weekend')
+        pie_chart = px.pie(group_sum, values=const.time_in_decmial, color=const.tags, color_discrete_map=colour_map,
+                           names=criteria[0], title='An Averaged Weekend')
     else:
-        return None
+        return None, None
 
-    total_time = data_service.sum_time(group_sum)
+    total_time = data_service.sum_time(group_sum)    
     # Upate labels from decimal to hours
-    fig.update_traces(text=[time_service.convert_to_hrs_for_display(
+    pie_chart.update_traces(text=[time_service.convert_to_hrs_for_display(
         group_sum.iloc(0)[i][1], total_time) for i in range(0, len(group_sum))])
 
-    return dcc.Graph(figure=fig)
+    # ===== Building Stacked Bar Chart ======
+    # Hacky way to get gantt charts on plotly to work with time based data. See https://stackoverflow.com/questions/63714679/plotting-gannt-chart-using-timestamps
+    df['barstart'] = '1970-01-01 ' + df[const.start_time].astype(str)
+    df['barend'] = '1970-01-01 ' + df[const.end_time].astype(str)
+    
+    num_of_days = len(df[const.start_date].unique())
+    stacked_bar = px.timeline(df, x_start='barstart', x_end='barend', y=const.start_date, height=(num_of_days * const.gantt_bar_height),
+                              color=const.tags, color_discrete_map=colour_map, title='Time Spent Each Day')
+    stacked_bar.update_layout(xaxis=dict(tickformat = '%H:%M'))
+
+    return dcc.Graph(figure=pie_chart), dcc.Graph(figure=stacked_bar)

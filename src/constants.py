@@ -46,6 +46,7 @@ col_name_map = {
     'Amount (SGD)': bill_amt,
 }
 
+# ============= COLUMN GROUPS =============
 group_by_options = [
     {'label': 'Project', 'value': project},
     {'label': 'Client', 'value': client},
@@ -55,3 +56,6 @@ group_by_options = [
     {'label': 'Description', 'value': desc},
     {'label': 'Task', 'value': task},
 ]
+
+# ============= OTHER MISC. CONSTANTS =============
+gantt_bar_height = 15 # in px
