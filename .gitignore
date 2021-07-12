@@ -5,3 +5,8 @@ data/*
 # Any cache folders
 __pycache__
 .vscode
+
+# Deployment folders
+dist
+build
+index.spec
