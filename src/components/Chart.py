@@ -28,8 +28,13 @@ layout = html.Div([
             ),
         ], width=4, className='p-3'),
     ]),
-    dbc.Row([dbc.Col(id='pie')]),
-    dbc.Row([dbc.Col(id='histogram')])
+    dbc.Row(
+        [dbc.Col(dcc.Loading(id='pie', type='graph', children=html.Div(id='pie')))]
+    ),
+    dbc.Row(
+        [dbc.Col(dcc.Loading(id='histogram', type='graph',
+                 children=html.Div(id='histogram')))]
+    ),
 ])
 
 
@@ -78,6 +83,6 @@ def update_charts(selected, data, criteria):
     num_of_days = len(df[const.start_date].unique())
     stacked_bar = px.timeline(df, x_start='barstart', x_end='barend', y=const.start_date, height=(num_of_days * const.gantt_bar_height),
                               color=const.tags, color_discrete_map=colour_map, title='Time Spent Each Day')
-    stacked_bar.update_layout(xaxis=dict(tickformat = '%H:%M'))
+    stacked_bar.update_layout(xaxis=dict(tickformat = '%H:%M'), bargap=0)
 
     return dcc.Graph(figure=pie_chart), dcc.Graph(figure=stacked_bar)

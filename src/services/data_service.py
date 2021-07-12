@@ -66,6 +66,6 @@ def get_discret_colour_map(data):
     tags = data[const.tags].unique()
 
     # Supports 11 + 8 colours. Tags without colours are dropped
-    colours = px.colors.qualitative.Pastel + px.colors.qualitative.Pastel2
+    colours = px.colors.qualitative.Prism + px.colors.qualitative.Safe
     return dict(zip(tags, colours))
     

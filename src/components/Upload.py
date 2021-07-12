@@ -6,7 +6,7 @@ from app import app
 from services import data_service, parser_service
 from components import Chart, Error
 
-layout = dcc.Upload(
+layout = dcc.Loading(children=dcc.Upload(
     id='upload-data',
     children=html.Div([
         'Drag and Drop or ',
@@ -23,7 +23,7 @@ layout = dcc.Upload(
         'margin': '10px'
     },
     multiple=False
-)
+), type='cube', fullscreen=True)
 
 @app.callback(Output('output-data-upload', 'children'),
               Output('upload-data', 'style'),
