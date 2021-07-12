@@ -6,9 +6,8 @@ layout = html.Div([
             html.Li(
                 ['Head to ', html.A(href='https://clockify.me/tracker', children='Clockify')]),
             html.Li(children='Click on REPORTS in the sidebar.'),
+            html.Li(children='Click on Detailed in the top bar.'),
             html.Li(children='Select the range of data you wish to visualize.'),
-            html.Li(
-                children='Under the second panel, select the Group By for "Tag", followed by "Description". '),
             html.Li(
                 children='Click on Export > Save as CSV in the first panel and save the file.'),
             html.Li(children='Upload the saved csv file over to the box below.')
